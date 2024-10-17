@@ -1,0 +1,44 @@
+.layout-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.topbar {
+  width: 100%;
+  background-color: #333;
+  height: 60px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.topbar ul {
+  list-style-type: none;
+  display: flex;
+  margin: 0;
+  padding: 0;
+}
+
+.topbar li {
+  margin: 0 20px;
+}
+
+.topbar a {
+  color: white;
+  text-decoration: none;
+  font-size: 18px;
+}
+
+.topbar a:hover {
+  background-color: #575757;
+  padding: 5px 10px;
+  border-radius: 5px;
+}
+
+.content {
+  padding-top: 80px;
+  padding: 20px;
+}
