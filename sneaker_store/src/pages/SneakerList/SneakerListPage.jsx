@@ -1,13 +1,13 @@
 import React from "react";
 import { Outlet, useLocation } from "react-router-dom";
-import "./SneakerListPage.css";
+import "./SneakerListPageStyle.css";
 
 const SneakerListPage = () => {
   const location = useLocation();
 
   return (
     <div className="sneakerlist-container">
-      {location.pathname === "/sneakers" && <div>SneakerListPage</div>} {/* Змінити на правильний шлях */}
+      {location.pathname === "/sneakers" && <div>SneakerListPage</div>}
       <nav className="sidebar">
         <ul>
           <li>
