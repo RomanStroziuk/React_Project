@@ -1,21 +1,16 @@
 import React from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import "./SneakerListPage.css";
-
-
-const SneakerListPage = () => {
+import "./OrderPage.css"
+const OrderPage = () => {
   const location = useLocation();
 
   return (
     <div className="sneakerlist-container">
-      {location.pathname === "/sneakers" && <div>SneakerListPage</div>}
+      {location.pathname === "/orders" && <div>OrderPage</div>}
       <nav className="sidebar">
         <ul>
           <li>
-            <Link to="/sneakers/brands">Brand </Link>
-          </li>
-          <li>
-            <Link to="/sneakers/categories">Category</Link>
+            <Link to="/orders/status"> Status </Link>
           </li>
         </ul>
       </nav>
@@ -25,5 +20,4 @@ const SneakerListPage = () => {
     </div>
   );
 };
-
-export default SneakerListPage;
+export default OrderPage;

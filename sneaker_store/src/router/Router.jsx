@@ -3,10 +3,14 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
 import SneakerListPage from "../pages/SneakerList/SneakerListPage";
 import UsersPage from "../pages/Users/UsersPage";
-import Layout from "../pages/Layout/Layout";
+import Layout from "../common/components/Layout/Layout";
 import Login from "../pages/Login/Login";
 import BrandPage from "../pages/SneakerList/pages/BrandPage/BrandPage";
 import CategoryPage from "../pages/SneakerList/pages/CategoryPage/CategoryPage";
+import RolePage from "../pages/Users/pages/RolePage/RolePage";
+import OrderPage from "../pages/Order/OrderPage";
+import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
+import WarehousePage from "../pages/Warehouse/WarehousePage";
 
 const Router = () => {
   return (
@@ -19,7 +23,13 @@ const Router = () => {
             <Route path="brands" element={<BrandPage />} />
             <Route path="categories" element={<CategoryPage />} />
           </Route>
-          <Route path="users" element={<UsersPage />} />
+          <Route path="users" element={<UsersPage />}>
+            <Route path="roles" element={<RolePage />} />
+          </Route>
+          <Route path="orders" element={<OrderPage />}>
+            <Route path="status" element={<StatusPage />} />
+          </Route>
+          <Route path="warehouses" element={<WarehousePage />}></Route>
         </Route>
       </Routes>
     </BrowserRouter>
