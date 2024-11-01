@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
 import "./SneakerListPage.css";
 
+
 const SneakerListPage = () => {
   const location = useLocation();
 
