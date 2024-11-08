@@ -15,7 +15,7 @@ export class BrandService {
     return await this.httpClient.get(`/${id}`);
   }
   async createBrand(brand) {
-    return await this.httpClient.post("", { brand });
+    return await this.httpClient.post("", brand);
   }
   async updateBrand(brand) {
     return await this.httpClient.put("", { brand });

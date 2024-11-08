@@ -14,11 +14,11 @@ export class CategoryService {
   async getCategoryById() {
     return await this.httpClient.get(`/${id}`);
   }
-  async createCategory(brand) {
-    return await this.httpClient.post("", { brand });
+  async createCategory(category) {
+    return await this.httpClient.post("", category);
   }
-  async updateCategory(brand) {
-    return await this.httpClient.put("", { brand });
+  async updateCategory(category) {
+    return await this.httpClient.put("", { category });
   }
   async deleteCategory(id) {
     return await this.httpClient.delete(`/${id}`);

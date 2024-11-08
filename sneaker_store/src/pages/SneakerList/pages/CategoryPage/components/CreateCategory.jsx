@@ -7,6 +7,7 @@ const CreateCategory = ({ name = "", onNameChange, onSubmit }) => {
         value={name}
         onChange={onNameChange}
         style={{ borderRadius: "5px", height: "20px" }}
+        required
       />
       <button onClick={onSubmit} style={{ marginLeft: "10px" }}>
         Add

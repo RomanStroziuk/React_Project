@@ -11,9 +11,9 @@ export const useCreateBrand = () => {
     setLoading(true);
     try {
       const response = await brandService.createBrand(brand);
-      return response.data;
+      return response;
     } catch (error) {
-      setError(error);
+      setError(error.massage || 'Unknown error occurred');
       throw error;
     } finally {
       setLoading(false);
