@@ -18,7 +18,7 @@ export class BrandService {
     return await this.httpClient.post("", brand);
   }
   async updateBrand(brand) {
-    return await this.httpClient.put("", { brand });
+    return await this.httpClient.put("", brand);
   }
   async deleteBrand(id) {
     return await this.httpClient.delete(`/${id}`);

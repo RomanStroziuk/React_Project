@@ -1,34 +1,60 @@
-import React, { useState } from "react";
+import { useState } from "react";
+import { BrandService } from "../service/BrandService";
 
-export const useEditBrand = (brands, serBrands) => {
+export const useEditBrand = (brands, setBrands) => {
   const [isEdit, setIsEdit] = useState(null);
-  const [titleEdit, setTitle] = useState();
+  const [nameEdit, setName] = useState("");
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleEditClick = (id, title) => {
+  const brandService = new BrandService();
+
+  const handleEditClick = (id, name) => {
     setIsEdit(id);
-    setTitle(title);
+    setName(name);
     setShowAlert(false);
   };
 
-  const handleSaveClick = (id) => {
-    if (!titleEdit.trim()) {
+  const handleSaveClick = async (id) => {
+    if (!nameEdit.trim()) {
+      setAlertMessage("Brand name cannot be empty.");
       setShowAlert(true);
-    } else {
-      const editBrands = brands.map((brand) =>
-        brand.id === id ? { ...brand, title: titleEdit } : brand
+      return;
+    }
+
+    if (nameEdit.trim().length < 3) {
+      setAlertMessage("Brand name must be at least 3 characters long.");
+      setShowAlert(true);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await brandService.updateBrand({ id, name: nameEdit });
+      const updatedBrands = brands.map((brand) =>
+        brand.id === id ? { ...brand, name: nameEdit } : brand
       );
-      setBrands(editBrands);
-      setShowAlert(false);
+      setBrands(updatedBrands);
       setIsEdit(null);
+    } catch (error) {
+      setError(error.message || "Unknown error occurred");
+    } finally {
+      setLoading(false);
     }
   };
+
   return {
     isEdit,
     showAlert,
-    titleEdit,
-    setTitle,
+    alertMessage,
+    nameEdit,
+    setName,
     handleEditClick,
     handleSaveClick,
+    setShowAlert,
+    loading,
+    error,
   };
 };

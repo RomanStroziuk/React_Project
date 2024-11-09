@@ -1,34 +1,60 @@
 import { useState } from "react";
+import { CategoryService } from "../service/CategoryService";
 
 export const useEditCategory = (categories, setCategory) => {
   const [isEdit, setIsEdit] = useState(null);
-  const [titleEdit, setTitle] = useState();
+  const [nameEdit, setName] = useState();
   const [showAlert, setShowAlert] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(null);
 
-  const handleEditClick = (id, title) => {
+  const categoryService = new CategoryService();
+
+  const handleEditClick = (id, name) => {
     setIsEdit(id);
-    setTitle(title);
+    setName(name);
     setShowAlert(false);
   };
 
-  const handleSaveClick = (id) => {
-    if (!titleEdit.trim()) {
+  const handleSaveClick = async (id) => {
+    if (!nameEdit.trim()) {
+      setAlertMessage("Category name cannot be empty.");
       setShowAlert(true);
-    } else {
-      const editCategory = categories.map((category) =>
-        category.id === id ? { ...category, title: titleEdit } : category
+      return;
+    }
+
+    if (nameEdit.trim().length < 3) {
+      setAlertMessage("Category name must be at least 3 characters long.");
+      setShowAlert(true);
+      return;
+    }
+
+    setLoading(true);
+    try {
+      await categoryService.updateCategory({ id, name: nameEdit });
+      const updatedCategories = categories.map((category) =>
+        category.id === id ? { ...category, name: nameEdit } : category
       );
-      setCategory(editCategory);
-      setShowAlert(false);
+      setCategory(updatedCategories);
       setIsEdit(null);
+    } catch (error) {
+      setError(error.message || "Unknown error occurred");
+    } finally {
+      setLoading(false);
     }
   };
+
   return {
     isEdit,
     showAlert,
-    titleEdit,
-    setTitle,
+    alertMessage,
+    nameEdit,
+    setName,
     handleEditClick,
     handleSaveClick,
+    setShowAlert,
+    loading,
+    error,
   };
 };

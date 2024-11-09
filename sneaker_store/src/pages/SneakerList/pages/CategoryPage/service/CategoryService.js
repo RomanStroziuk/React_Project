@@ -18,7 +18,7 @@ export class CategoryService {
     return await this.httpClient.post("", category);
   }
   async updateCategory(category) {
-    return await this.httpClient.put("", { category });
+    return await this.httpClient.put("", category);
   }
   async deleteCategory(id) {
     return await this.httpClient.delete(`/${id}`);
