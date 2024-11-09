@@ -39,6 +39,15 @@ const BrandPage = () => {
       setOpenSnackbar(true);
       return;
     }
+    if (
+      brands.some(
+        (brand) => brand.name.toLowerCase() === newBrand.name.toLowerCase()
+      )
+    ) {
+      setErrorMessage("The brand name already exists.");
+      setOpenSnackbar(true);
+      return;
+    }
     try {
       const createdBrand = await createBrand(newBrand);
       setBrands((prevBrands) => [...prevBrands, createdBrand]);
@@ -65,10 +74,12 @@ const BrandPage = () => {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        {errorMessage && (
+        {errorMessage ? (
           <Alert severity="error" onClose={handleCloseSnackbar}>
             {errorMessage}
           </Alert>
+        ) : (
+          <div></div>
         )}
       </Snackbar>
 

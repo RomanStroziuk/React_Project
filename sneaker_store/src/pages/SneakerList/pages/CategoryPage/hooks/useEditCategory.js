@@ -31,6 +31,7 @@ export const useEditCategory = (categories, setCategory) => {
     }
 
     setLoading(true);
+    
     try {
       await categoryService.updateCategory({ id, name: nameEdit });
       const updatedCategories = categories.map((category) =>

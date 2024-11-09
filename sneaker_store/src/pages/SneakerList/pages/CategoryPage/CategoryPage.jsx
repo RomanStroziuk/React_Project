@@ -39,6 +39,16 @@ const CategoryPage = () => {
       setOpenSnackbar(true);
       return;
     }
+    if (
+      categories.some(
+        (category) =>
+          category.name.toLowerCase() === newCategory.name.toLowerCase()
+      )
+    ) {
+      setErrorMessage("The category name already exists.");
+      setOpenSnackbar(true);
+      return;
+    }
     try {
       const createdCategory = await createCategory(newCategory);
       setCategories((prevCategories) => [...prevCategories, createdCategory]);
@@ -68,10 +78,12 @@ const CategoryPage = () => {
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        {errorMessage && (
+        {errorMessage ? (
           <Alert severity="error" onClose={handleCloseSnackbar}>
             {errorMessage}
           </Alert>
+        ) : (
+          <div></div>
         )}
       </Snackbar>
 
