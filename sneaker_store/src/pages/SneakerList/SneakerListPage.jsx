@@ -1,7 +1,6 @@
 import React from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import "./SneakerListPage.css";
-
+import "./SneakerListPageStyle.css";
 
 const SneakerListPage = () => {
   const location = useLocation();
