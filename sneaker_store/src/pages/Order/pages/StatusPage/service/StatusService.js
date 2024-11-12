@@ -1,26 +1,26 @@
 import { HttpClient } from "../../../../../utils/http/HttpClient";
 
-export class BrandService {
+export class StatusService {
   constructor(signal) {
     this.httpClient = new HttpClient({
-      baseURL: `https://localhost:7144/brands`,
+      baseURL: `https://localhost:7144/status`,
       timeout: 10000,
       signal,
     });
   }
-  async getAllBrands() {
+  async getAllStatutes() {
     return await this.httpClient.get("");
   }
-  async getBrandById() {
+  async getStatusById() {
     return await this.httpClient.get(`/${id}`);
   }
-  async createBrand(brand) {
-    return await this.httpClient.post("", brand);
+  async createStatus(status) {
+    return await this.httpClient.post("", status);
   }
-  async updateBrand(brand) {
-    return await this.httpClient.put("", brand);
+  async updateStatus(status) {
+    return await this.httpClient.put("", status);
   }
-  async deleteBrand(id) {
+  async deleteStatus(id) {
     return await this.httpClient.delete(`/${id}`);
   }
 }

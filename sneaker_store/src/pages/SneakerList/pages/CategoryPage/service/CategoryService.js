@@ -3,7 +3,7 @@ import { HttpClient } from "../../../../../utils/http/HttpClient";
 export class CategoryService {
   constructor(signal) {
     this.httpClient = new HttpClient({
-      baseURL: `https://localhost:44353/categories`,
+      baseURL: `https://localhost:7144/categories`,
       timeout: 10000,
       signal,
     });
