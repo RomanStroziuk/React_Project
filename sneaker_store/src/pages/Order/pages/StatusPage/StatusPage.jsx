@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import StatusTable from "../StatusPage/components/StatusTable";
-import { useGetAllStatutes } from "../StatusPage/hooks/useGetAllStatutes";
-import { useRemoveStatus} from "../StatusPage/hooks/useRemoveStatus";
-import { useCreateStatus } from "../StatusPage/hooks/useCreateStatus";
-import CreateStatus from "../StatusPage/components/CreateStatus";
-import SearchBar from "../StatusPage/components/SearchStatus";
+import StatusTable from "./components/StatusTable";
+import { useGetAllStatutes } from "./hooks/useGetAllStatutes";
+import { useRemoveStatus } from "./hooks/useRemoveStatus";
+import { useCreateStatus } from "./hooks/useCreateStatus";
+import CreateStatus from "./components/CreateStatus";
+import SearchBar from "./components/SearchStatus";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 

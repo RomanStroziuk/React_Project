@@ -1,10 +1,10 @@
 import React, { useState } from "react";
-import RoleTable from "../RolePage/components/RoleTable";
-import { useGetAllRoles } from "../RolePage/hooks/useGetAllRoles";
-import { useRemoveRole} from "../RolePage/hooks/useRemoveRole";
-import { useCreateRole } from "../RolePage/hooks/useCreateRole";
-import CreateRole from "../RolePage/components/CreateRole";
-import SearchBar from "../RolePage/components/SearchRole";
+import RoleTable from "./components/RoleTable";
+import { useGetAllRoles } from "./hooks/useGetAllRoles";
+import { useRemoveRole } from "./hooks/useRemoveRole";
+import { useCreateRole } from "./hooks/useCreateRole";
+import CreateRole from "./components/CreateRole";
+import SearchBar from "./components/SearchRole";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
