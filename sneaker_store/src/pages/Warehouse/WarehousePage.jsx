@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import WarehouseTable from "./components/WarehouseTable";
+import { Outlet, useLocation, Link } from "react-router-dom";
 import { useGetAllWarehouses } from "./hooks/useGetAllWarehouses";
 import { useRemoveWarehouse } from "./hooks/useRemoveWarehouse";
 import { useCreateWarehouse } from "./hooks/useCreateWarehouse";
@@ -7,6 +8,7 @@ import CreateWarehouse from "./components/CreateWarehouse";
 import SearchBar from "./components/SearchWarehouse";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
+// import "./WarehousePageStyle.css";
 
 const WarehousePage = () => {
   const [newWarehouse, setNewWarehouse] = useState(null);
@@ -17,6 +19,8 @@ const WarehousePage = () => {
   const { warehouses, setWarehouses, loading, error } = useGetAllWarehouses();
   const { removeWarehouse } = useRemoveWarehouse(warehouses, setWarehouses);
   const { createWarehouse } = useCreateWarehouse();
+
+  const location = useLocation();
 
   function handleNewLocationChange(event) {
     setNewWarehouse((prevState) => ({
@@ -91,41 +95,57 @@ const WarehousePage = () => {
 
   return (
     <>
-      <Snackbar
-        open={openSnackbar}
-        autoHideDuration={6000}
-        onClose={handleCloseSnackbar}
-        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
-      >
-        {errorMessage ? (
-          <Alert severity="error" onClose={handleCloseSnackbar}>
-            {errorMessage}
-          </Alert>
-        ) : (
-          <div></div>
+      <div className="warehouseList-container">
+        {location.pathname === "/warehouses" && (
+          <>
+            <Snackbar
+              open={openSnackbar}
+              autoHideDuration={6000}
+              onClose={handleCloseSnackbar}
+              anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+            >
+              {errorMessage ? (
+                <Alert severity="error" onClose={handleCloseSnackbar}>
+                  {errorMessage}
+                </Alert>
+              ) : (
+                <div></div>
+              )}
+            </Snackbar>
+
+            <CreateWarehouse
+              location={newWarehouse?.location}
+              onLocationChange={handleNewLocationChange}
+              totalQuantity={newWarehouse?.totalQuantity}
+              onQuantityChange={handleNewQuantityChange}
+              onSubmit={handleSubmit}
+            />
+
+            <SearchBar
+              value={searchTerm}
+              onChange={handleSearchChange}
+              placeholder="Search warehouses..."
+            />
+
+            <WarehouseTable
+              warehouses={warehouses}
+              onRemove={removeWarehouse}
+              setWarehouses={setWarehouses}
+              filteredWarehouses={filteredWarehouses}
+            />
+          </>
         )}
-      </Snackbar>
-
-      <CreateWarehouse
-        location={newWarehouse?.location}
-        onLocationChange={handleNewLocationChange}
-        totalQuantity={newWarehouse?.totalQuantity}
-        onQuantityChange={handleNewQuantityChange}
-        onSubmit={handleSubmit}
-      />
-
-      <SearchBar
-        value={searchTerm}
-        onChange={handleSearchChange}
-        placeholder="Search warehouses..."
-      />
-
-      <WarehouseTable
-        warehouses={warehouses}
-        onRemove={removeWarehouse}
-        setWarehouses={setWarehouses}
-        filteredWarehouses={filteredWarehouses}
-      />
+        <nav className="sidebar">
+          <ul>
+            <li>
+              <Link to="/warehouses/sneaker-warehouse">Sneaker Warehouse</Link>
+            </li>
+          </ul>
+        </nav>
+        <div className="content">
+          <Outlet />
+        </div>
+      </div>
     </>
   );
 };

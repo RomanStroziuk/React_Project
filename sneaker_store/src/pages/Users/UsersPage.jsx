@@ -1,11 +1,11 @@
 import React from "react";
 import { Outlet, useLocation, Link } from "react-router-dom";
-import "./UserPage.css"
+import "./UserPage.css";
 const UsersPage = () => {
   const location = useLocation();
 
   return (
-    <div className="sneakerlist-container">
+    <div className="userlist-container">
       {location.pathname === "/users" && <div>UserPage</div>}
       <nav className="sidebar">
         <ul>
