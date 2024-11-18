@@ -11,6 +11,7 @@ import RolePage from "../pages/Users/pages/RolePage/RolePage";
 import OrderPage from "../pages/Order/OrderPage";
 import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
 import WarehousePage from "../pages/Warehouse/WarehousePage";
+import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
 
 const Router = () => {
   return (
@@ -29,7 +30,12 @@ const Router = () => {
           <Route path="orders" element={<OrderPage />}>
             <Route path="status" element={<StatusPage />} />
           </Route>
-          <Route path="warehouses" element={<WarehousePage />}></Route>
+          <Route path="warehouses" element={<WarehousePage />}>
+            <Route
+              path="sneaker-warehouse"
+              element={<SneakerWarehousePage />}
+            />
+          </Route>
         </Route>
       </Routes>
     </BrowserRouter>

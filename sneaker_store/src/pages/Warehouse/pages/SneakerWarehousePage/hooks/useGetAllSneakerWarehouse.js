@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { WarehouseService } from "../service/WarehouseService";
+import { SneakerWarehouseService } from "../service/SneakerWarehouseService";
 
-export const useGetAllWarehouses = () => {
-  const [warehouses, setWarehouses] = useState([]);
+export const useGetAllSneakerWarehouse = () => {
+  const [sneakerWarehouses, setSneakerWarehouses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -10,17 +10,17 @@ export const useGetAllWarehouses = () => {
     let isMounted = true;
     const abortController = new AbortController();
     const signal = abortController.signal;
-    const warehouseService = new WarehouseService(signal);
+    const sneakerWarehouseService = new SneakerWarehouseService(signal);
 
-    const fetchWarehouses = async () => {
+    const fetchSneakerWarehouses = async () => {
       try {
         setLoading(true);
         setError(null);
 
-        const response = await warehouseService.getAllWarehouses();
+        const response = await sneakerWarehouseService.getAllSneakerWarehouses();
 
         if (isMounted) {
-          setWarehouses(response);
+          setSneakerWarehouses(response);
         }
       } catch (error) {
         setError(error.message);
@@ -29,7 +29,7 @@ export const useGetAllWarehouses = () => {
       }
     };
 
-    fetchWarehouses();
+    fetchSneakerWarehouses();
 
     return () => {
       isMounted = false;
@@ -37,7 +37,6 @@ export const useGetAllWarehouses = () => {
     };
   }, []);
 
-  return { warehouses, setWarehouses, loading, error };
+  return { sneakerWarehouses, setSneakerWarehouses, loading, error };
 };
-
 
