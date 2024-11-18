@@ -68,9 +68,36 @@ const SneakerWarehouseTable = ({
             <tr key={sneakerWarehouse.id}>
               <td>{sneakerWarehouse.id.toString()}</td>
               <td>{sneakerWarehouse.sneaker.model}</td>
-              <td>{sneakerWarehouse.warehouse.location.toString()}</td>
-              <td>{sneakerWarehouse.sneakerQuantity}</td>
+              <td>{sneakerWarehouse.warehouse.location}</td>
               <td>
+                {isEdit === sneakerWarehouse.id ? (
+                  <>
+                    <input
+                      value={sneakerQuantityEdit}
+                      onChange={(e) => setSneakerQuantityEdit(e.target.value)}
+                    />
+                  </>
+                ) : (
+                  sneakerWarehouse.sneakerQuantity
+                )}
+              </td>
+              <td>
+                {isEdit === sneakerWarehouse.id ? (
+                  <button onClick={() => handleSaveClick(sneakerWarehouse.id)}>
+                    Save
+                  </button>
+                ) : (
+                  <button
+                    onClick={() =>
+                      handleEditClick(
+                        sneakerWarehouse.id,
+                        sneakerWarehouse.sneakerQuantity
+                      )
+                    }
+                  >
+                    Edit
+                  </button>
+                )}
                 <RemoveSneakerWarehouse
                   onSubmit={() => onRemove(sneakerWarehouse.id)}
                 />

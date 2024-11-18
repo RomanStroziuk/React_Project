@@ -9,7 +9,7 @@ export const useRemoveSneakerWarehouse = (sneakerWarehouse, setSneakerWarehouse)
   const removeSneakerWarehouse = (id) => {
     const makeDeleteApiRequest = async () => {
       try {
-        await sneakerWarehouseService.deleteWarehouse(id);
+        await sneakerWarehouseService.deleteSneakerWarehouse(id);
         setSneakerWarehouse(sneakerWarehouse.filter((sneakerWarehouse) => sneakerWarehouse.id !== id));
       } catch (error) {
         console.log(error);

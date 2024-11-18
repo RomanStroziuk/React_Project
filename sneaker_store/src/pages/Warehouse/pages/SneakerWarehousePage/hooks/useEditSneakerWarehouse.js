@@ -18,18 +18,17 @@ export const useEditSneakerWarehouse = (sneakerWarehouses, setSneakerWarehouses)
   };
 
   const handleSaveClick = async (id) => {
-
-    if (sneakerQuantityEdit <= 10) {
-      setAlertMessage("Sneaker warehouse quantity must be more than 10.");
+    if (sneakerQuantityEdit <= 0) {
+      setAlertMessage("Sneaker warehouse quantity must be more than 0.");
       setShowAlert(true);
       return;
     }
-
+  
     setLoading(true);
     try {
-      await sneakerWarehouseService.updateWarehouse({ id, sneakerQuantityEdit });
+      await sneakerWarehouseService.updateSneakerWarehouse({ id, sneakerQuantity: sneakerQuantityEdit });
       const updatedSneakerWarehouses = sneakerWarehouses.map((sneakerWarehouse) =>
-        sneakerWarehouse.id === id ? { ...sneakerWarehouse, sneakerQuantityEdit } : sneakerWarehouse
+        sneakerWarehouse.id === id ? { ...sneakerWarehouse, sneakerQuantity: sneakerQuantityEdit } : sneakerWarehouse
       );
       setSneakerWarehouses(updatedSneakerWarehouses);
       setIsEdit(null);
