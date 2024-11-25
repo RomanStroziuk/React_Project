@@ -8,13 +8,14 @@ import Login from "../pages/Login/Login";
 import BrandPage from "../pages/SneakerList/pages/BrandPage/BrandPage";
 import CategoryPage from "../pages/SneakerList/pages/CategoryPage/CategoryPage";
 import RolePage from "../pages/Users/pages/RolePage/RolePage";
-import OrderPage from "../pages/Order/OrderPage";
+import OrderPage from "../pages/Order/pages/OrderPage/OrderPage";
 import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
 import WarehousePage from "../pages/Warehouse/pages/WarehousePage/WarehousePage";
 import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";             
 import UserPageLayout from "../pages/Users/UserPageLayout";
+import OrderPageLayout from "../pages/Order/OrderPageLayout";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPage />}>
@@ -31,7 +32,8 @@ const UsersRoutes = () => (
 );
 
 const OrdersRoutes = () => (
-  <Route path="orders" element={<OrderPage />}>
+  <Route path="orders" element={<OrderPageLayout />}>
+    <Route index element={<OrderPage />} />
     <Route path="status" element={<StatusPage />} />
   </Route>
 );
