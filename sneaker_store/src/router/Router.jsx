@@ -10,8 +10,36 @@ import CategoryPage from "../pages/SneakerList/pages/CategoryPage/CategoryPage";
 import RolePage from "../pages/Users/pages/RolePage/RolePage";
 import OrderPage from "../pages/Order/OrderPage";
 import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
-import WarehousePage from "../pages/Warehouse/WarehousePage";
+import WarehousePage from "../pages/Warehouse/pages/WarehousePage/WarehousePage";
 import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";
+
+const SneakersRoutes = () => (
+  <Route path="sneakers" element={<SneakerListPage />}>
+    <Route path="brands" element={<BrandPage />} />
+    <Route path="categories" element={<CategoryPage />} />
+  </Route>
+);
+
+const UsersRoutes = () => (
+  <Route path="users" element={<UsersPage />}>
+    <Route path="roles" element={<RolePage />} />
+  </Route>
+);
+
+const OrdersRoutes = () => (
+  <Route path="orders" element={<OrderPage />}>
+    <Route path="status" element={<StatusPage />} />
+  </Route>
+);
+
+const WarehousesRoutes = () => (
+  <Route path="warehouses" element={<WarehousePageLayout />}>
+    <Route index element={<WarehousePage />} />
+    <Route path="sneaker-warehouse" element={<SneakerWarehousePage />} />
+  </Route>
+);
 
 const Router = () => {
   return (
@@ -20,23 +48,12 @@ const Router = () => {
         <Route path="/login" element={<Login />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
-          <Route path="sneakers" element={<SneakerListPage />}>
-            <Route path="brands" element={<BrandPage />} />
-            <Route path="categories" element={<CategoryPage />} />
-          </Route>
-          <Route path="users" element={<UsersPage />}>
-            <Route path="roles" element={<RolePage />} />
-          </Route>
-          <Route path="orders" element={<OrderPage />}>
-            <Route path="status" element={<StatusPage />} />
-          </Route>
-          <Route path="warehouses" element={<WarehousePage />}>
-            <Route
-              path="sneaker-warehouse"
-              element={<SneakerWarehousePage />}
-            />
-          </Route>
+          {SneakersRoutes()}
+          {UsersRoutes()}
+          {OrdersRoutes()}
+          {WarehousesRoutes()}
         </Route>
+        <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
   );
