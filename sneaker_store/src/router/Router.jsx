@@ -1,7 +1,7 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
-import SneakerListPage from "../pages/SneakerList/SneakerListPage";
+import SneakerListPage from "../pages/SneakerList/pages/SneakerListPage/SneakerListPage";
 import UsersPage from "../pages/Users/pages/UserPage/UsersPage";
 import Layout from "../common/components/Layout/Layout";
 import Login from "../pages/Login/Login";
@@ -16,9 +16,11 @@ import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";             
 import UserPageLayout from "../pages/Users/UserPageLayout";
 import OrderPageLayout from "../pages/Order/OrderPageLayout";
+import SneakerListPageLayout from "../pages/SneakerList/SneakerListPageLayout";
 
 const SneakersRoutes = () => (
-  <Route path="sneakers" element={<SneakerListPage />}>
+  <Route path="sneakers" element={<SneakerListPageLayout />}>
+    <Route index element={<SneakerListPage />} />
     <Route path="brands" element={<BrandPage />} />
     <Route path="categories" element={<CategoryPage />} />
   </Route>
