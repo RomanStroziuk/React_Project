@@ -1,25 +1,23 @@
-import React, { useState } from "react";
-import { Outlet, useLocation, Link } from "react-router-dom";
-import UserTable from "./components/UserTable";
+import React, { useState, useEffect } from "react";
 import SearchBar from "./components/SearchUser";
-import { useGetAllUsers } from "./hooks/useGetAllUsers";
-import { useRemoveUsers } from "./hooks/useRemoveUsers";
+import UserTable from "./components/UserTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import "./UserPage.css";
+import { useGetAllUsers } from "./hooks/useGetAllUsers";
+import { useRemoveUsers } from "./hooks/useRemoveUsers";
 
 const UsersPage = () => {
-  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { users, setUsers, loading, error } = useGetAllUsers();
   const { removeUsers, error: removeError } = useRemoveUsers(users, setUsers);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (error || removeError) {
       setOpenSnackbar(true);
     }
@@ -37,11 +35,10 @@ const UsersPage = () => {
 
   return (
     <div className="userlist-container">
-      {location.pathname === "/users" && <div>UserPage</div>}
       <nav className="sidebar">
         <ul>
           <li>
-            <Link to="/users/roles">Role</Link>
+            <a href="/users/roles">Role</a>
           </li>
         </ul>
       </nav>
@@ -75,7 +72,6 @@ const UsersPage = () => {
             error={error || removeError}
           />
         )}
-        <Outlet />
       </div>
     </div>
   );

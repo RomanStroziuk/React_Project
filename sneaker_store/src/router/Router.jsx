@@ -2,7 +2,7 @@ import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import HomePage from "../pages/Home/HomePage";
 import SneakerListPage from "../pages/SneakerList/SneakerListPage";
-import UsersPage from "../pages/Users/UsersPage";
+import UsersPage from "../pages/Users/pages/UserPage/UsersPage";
 import Layout from "../common/components/Layout/Layout";
 import Login from "../pages/Login/Login";
 import BrandPage from "../pages/SneakerList/pages/BrandPage/BrandPage";
@@ -13,7 +13,8 @@ import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
 import WarehousePage from "../pages/Warehouse/pages/WarehousePage/WarehousePage";
 import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
-import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";
+import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";             
+import UserPageLayout from "../pages/Users/UserPageLayout";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPage />}>
@@ -23,7 +24,8 @@ const SneakersRoutes = () => (
 );
 
 const UsersRoutes = () => (
-  <Route path="users" element={<UsersPage />}>
+  <Route path="users" element={<UserPageLayout />}>
+    <Route index element={<UsersPage />} />
     <Route path="roles" element={<RolePage />} />
   </Route>
 );

@@ -1,4 +1,4 @@
-import { HttpClient } from "../../../utils/http/HttpClient";
+import { HttpClient } from "@/utils/http/HttpClient";
 
 export class UserService {
   constructor(signal) {
