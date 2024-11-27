@@ -9,18 +9,18 @@ export class CategoryService {
     });
   }
   async getAllCategories() {
-    return await this.httpClient.get("");
+    return await this.httpClient.get("/list");
   }
   async getCategoryById() {
     return await this.httpClient.get(`/${id}`);
   }
   async createCategory(category) {
-    return await this.httpClient.post("", category);
+    return await this.httpClient.post("/create", category);
   }
   async updateCategory(category) {
-    return await this.httpClient.put("", category);
+    return await this.httpClient.put("/update", category);
   }
   async deleteCategory(id) {
-    return await this.httpClient.delete(`/${id}`);
+    return await this.httpClient.delete(`/delete/${id}`);
   }
 }

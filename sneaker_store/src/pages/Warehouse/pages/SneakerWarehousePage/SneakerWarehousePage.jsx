@@ -8,8 +8,8 @@ import SearchBar from "./components/SearchSneakerWarehouse";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-import { SneakerService } from "../../../SneakerList/service/SneakerService";
-import { WarehouseService } from "../../service/WarehouseService";
+import { SneakerService } from "../../../SneakerList/pages/SneakerListPage/service/SneakerService";
+import { WarehouseService } from "../WarehousePage/service/WarehouseService";
 
 const SneakerWarehousePage = () => {
   const [newSneakerWarehouse, setNewSneakerWarehouse] = useState(null);
