@@ -5,6 +5,7 @@ import { useRemoveCategory } from "../CategoryPage/hooks/useRemoveCategory";
 import { useCreateCategory } from "../CategoryPage/hooks/useCreateCategory";
 import CreateCategory from "../CategoryPage/components/CreateCategory";
 import SearchBar from "../CategoryPage/components/SearchCategory";
+import Loader from "../../../../common/components/Loader/Loader";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -98,13 +99,14 @@ const CategoryPage = () => {
         onChange={handleSearchChange}
         placeholder="Search categories..."
       />
-
-      <CategoryTable
-        categories={categories}
-        onRemove={removeCategory}
-        setCategories={setCategories}
-        filteredCategories={filteredCategories}
-      />
+      <Loader loading={loading}>
+        <CategoryTable
+          categories={categories}
+          onRemove={removeCategory}
+          setCategories={setCategories}
+          filteredCategories={filteredCategories}
+        />
+      </Loader>
     </>
   );
 };

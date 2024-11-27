@@ -24,7 +24,7 @@ const WarehousePageLayout = ({
           <div></div>
         )}
       </Snackbar>
-      <nav className="sidebar">  
+      <nav className="sidebar">
         <ul>
           <li>
             <Link to="/warehouses/sneaker-warehouse">Sneaker Warehouse</Link>

@@ -3,6 +3,7 @@ import BrandTable from "../BrandPage/components/BrandTable";
 import { useGetAllBrands } from "../BrandPage/hooks/useGetAllBrands";
 import { useRemoveBrand } from "../BrandPage/hooks/useRemoveBrand";
 import { useCreateBrand } from "../BrandPage/hooks/useCreateBrand";
+import Loader from "../../../../common/components/Loader/Loader";
 import CreateBrand from "../BrandPage/components/CreateBrand";
 import SearchBar from "../BrandPage/components/SearchBrand";
 import Snackbar from "@mui/material/Snackbar";
@@ -95,12 +96,14 @@ const BrandPage = () => {
         placeholder="Search brands..."
       />
 
-      <BrandTable
-        brands={brands}
-        onRemove={removeBrand}
-        setBrands={setBrands}
-        filteredBrands={filteredBrands}
-      />
+      <Loader loading={loading}>
+        <BrandTable
+          brands={brands}
+          onRemove={removeBrand}
+          setBrands={setBrands}
+          filteredBrands={filteredBrands}
+        />
+      </Loader>
     </>
   );
 };

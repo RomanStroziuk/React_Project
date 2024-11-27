@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import WarehouseTable from "./components/WarehouseTable";
-import CreateWarehouse from "./components/CreateWarehouse";
-import SearchBar from "./components/SearchWarehouse";
 import { useGetAllWarehouses } from "./hooks/useGetAllWarehouses";
 import { useRemoveWarehouse } from "./hooks/useRemoveWarehouse";
 import { useCreateWarehouse } from "./hooks/useCreateWarehouse";
+import Loader from "../../../../common/components/Loader/Loader";
+import CreateWarehouse from "./components/CreateWarehouse";
+import WarehouseTable from "./components/WarehouseTable";
+import SearchBar from "./components/SearchWarehouse";
 
 const WarehousePage = () => {
   const [newWarehouse, setNewWarehouse] = useState(null);
@@ -102,13 +103,14 @@ const WarehousePage = () => {
         onChange={handleSearchChange}
         placeholder="Search warehouses..."
       />
-
-      <WarehouseTable
-        warehouses={warehouses}
-        onRemove={removeWarehouse}
-        setWarehouses={setWarehouses}
-        filteredWarehouses={filteredWarehouses}
-      />
+      <Loader loading={loading}>
+        <WarehouseTable
+          warehouses={warehouses}
+          onRemove={removeWarehouse}
+          setWarehouses={setWarehouses}
+          filteredWarehouses={filteredWarehouses}
+        />
+      </Loader>
     </>
   );
 };

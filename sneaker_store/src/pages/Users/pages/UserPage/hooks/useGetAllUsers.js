@@ -6,10 +6,7 @@ export const useGetAllUsers = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
-  console.log('ffff')
-
   useEffect(() => {
-    console.log('ffff')
     let isMounted = true;
     const abortController = new AbortController();
     const signal = abortController.signal;
@@ -19,8 +16,7 @@ export const useGetAllUsers = () => {
       try {
         setLoading(true);
         setError(null);
-      
-
+    
         const response = await userService.getAllUsers();
 
         if (isMounted) {
