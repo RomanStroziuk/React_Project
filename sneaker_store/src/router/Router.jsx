@@ -16,7 +16,7 @@ import UserPageLayout from "../pages/Users/UserPageLayout";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import Layout from "../common/components/Layout/Layout";
 import HomePage from "../pages/Home/HomePage";
-import Login from "../pages/Login/Login";
+import Login from "../pages/Login/LoginPage";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPageLayout />}>
