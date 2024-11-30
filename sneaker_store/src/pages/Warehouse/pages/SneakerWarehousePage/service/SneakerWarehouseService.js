@@ -9,7 +9,7 @@ export class SneakerWarehouseService {
     });
   }
   async getAllSneakerWarehouses() {
-    return await this.httpClient.get("");
+    return await this.httpClient.get("list");
   }
 
   async getSneakerWarehouseById(id) {
@@ -17,14 +17,14 @@ export class SneakerWarehouseService {
   }
 
   async createSneakerWarehouse(sneakerWarehouse) {
-    return await this.httpClient.post("", sneakerWarehouse);
+    return await this.httpClient.post("/create", sneakerWarehouse);
   }
 
   async updateSneakerWarehouse(sneakerWarehouse) {
-    return await this.httpClient.put("", sneakerWarehouse);
+    return await this.httpClient.put("/update", sneakerWarehouse);
   }
 
   async deleteSneakerWarehouse(id) {
-    return await this.httpClient.delete(`/${id}`);
+    return await this.httpClient.delete(`/delete/${id}`);
   }
 }

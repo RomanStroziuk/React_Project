@@ -1,17 +1,13 @@
 import React from "react";
-import { Outlet, useLocation, Link } from "react-router-dom";
-import "./SneakerListPageStyle.css";
+import { Outlet, Link } from "react-router-dom";
 
-const SneakerListPage = () => {
-  const location = useLocation();
-
+const SneakerListPageLayout = () => {
   return (
     <div className="sneakerlist-container">
-      {location.pathname === "/sneakers" && <div>SneakerListPage</div>}
       <nav className="sidebar">
         <ul>
           <li>
-            <Link to="/sneakers/brands">Brand </Link>
+            <Link to="/sneakers/brands">Brand</Link>
           </li>
           <li>
             <Link to="/sneakers/categories">Category</Link>
@@ -25,4 +21,4 @@ const SneakerListPage = () => {
   );
 };
 
-export default SneakerListPage;
+export default SneakerListPageLayout;

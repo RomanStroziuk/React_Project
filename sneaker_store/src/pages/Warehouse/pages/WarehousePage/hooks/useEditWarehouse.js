@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { WarehouseService } from "../service/WarehouseService";
+import { WarehouseService } from '../service/WarehouseService';
 
 export const useEditWarehouse = (warehouses, setWarehouses) => {
   const [isEdit, setIsEdit] = useState(null);

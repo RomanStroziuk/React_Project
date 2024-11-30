@@ -4,12 +4,13 @@ import { useRemoveSneakerWarehouse } from "./hooks/useRemoveSneakerWarehouse";
 import { useCreateSneakerWarehouse } from "./hooks/useCreateSneakerWarehouse";
 import CreateSneakerWarehouse from "./components/CreateSneakerWarehouse";
 import SneakerWarehouseTable from "./components/SneakerWarehouseTable";
+import Loader from "../../../../common/components/Loader/Loader";
 import SearchBar from "./components/SearchSneakerWarehouse";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-import { SneakerService } from "../../../SneakerList/service/SneakerService";
-import { WarehouseService } from "../../service/WarehouseService";
+import { SneakerService } from "../../../SneakerList/pages/SneakerListPage/service/SneakerService";
+import { WarehouseService } from "../WarehousePage/service/WarehouseService";
 
 const SneakerWarehousePage = () => {
   const [newSneakerWarehouse, setNewSneakerWarehouse] = useState(null);
@@ -153,13 +154,14 @@ const SneakerWarehousePage = () => {
         onDropdownChange2={handleDropdownChange2}
         onSubmit={handleNewSneakerSubmit}
       />
-
-      <SneakerWarehouseTable
-        sneakerWarehouses={sneakerWarehouses}
-        onRemove={removeSneakerWarehouse}
-        setSneakerWarehouses={setSneakerWarehouses}
-        filteredSneakerWarehouses={filteredSneakerWarehouse}
-      />
+      <Loader loading={loading}>
+        <SneakerWarehouseTable
+          sneakerWarehouses={sneakerWarehouses}
+          onRemove={removeSneakerWarehouse}
+          setSneakerWarehouses={setSneakerWarehouses}
+          filteredSneakerWarehouses={filteredSneakerWarehouse}
+        />
+      </Loader>
     </>
   );
 };

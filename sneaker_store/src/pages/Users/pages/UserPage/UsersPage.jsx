@@ -1,25 +1,24 @@
-import React, { useState } from "react";
-import { Outlet, useLocation, Link } from "react-router-dom";
-import UserTable from "./components/UserTable";
-import SearchBar from "./components/SearchUser";
+import React, { useState, useEffect } from "react";
 import { useGetAllUsers } from "./hooks/useGetAllUsers";
 import { useRemoveUsers } from "./hooks/useRemoveUsers";
+import Loader from "../../../../common/components/Loader/Loader";
+import SearchBar from "./components/SearchUser";
+import UserTable from "./components/UserTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import "./UserPage.css";
 
 const UsersPage = () => {
-  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { users, setUsers, loading, error } = useGetAllUsers();
   const { removeUsers, error: removeError } = useRemoveUsers(users, setUsers);
-  const [openSnackbar, setOpenSnackbar] = useState(false);
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
   };
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (error || removeError) {
       setOpenSnackbar(true);
     }
@@ -37,11 +36,10 @@ const UsersPage = () => {
 
   return (
     <div className="userlist-container">
-      {location.pathname === "/users" && <div>UserPage</div>}
       <nav className="sidebar">
         <ul>
           <li>
-            <Link to="/users/roles">Role</Link>
+            <a href="/users/roles">Role</a>
           </li>
         </ul>
       </nav>
@@ -66,16 +64,13 @@ const UsersPage = () => {
           placeholder="Search users..."
         />
 
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
+        <Loader loading={loading}>
           <UserTable
             users={filteredUsers}
             onRemove={removeUsers}
             error={error || removeError}
           />
-        )}
-        <Outlet />
+        </Loader>
       </div>
     </div>
   );

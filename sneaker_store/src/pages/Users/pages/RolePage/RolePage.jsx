@@ -1,10 +1,11 @@
 import React, { useState } from "react";
-import RoleTable from "./components/RoleTable";
 import { useGetAllRoles } from "./hooks/useGetAllRoles";
 import { useRemoveRole } from "./hooks/useRemoveRole";
 import { useCreateRole } from "./hooks/useCreateRole";
+import Loader from "../../../../common/components/Loader/Loader";
 import CreateRole from "./components/CreateRole";
 import SearchBar from "./components/SearchRole";
+import RoleTable from "./components/RoleTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -95,12 +96,14 @@ const RolePage = () => {
         placeholder="Search roles..."
       />
 
-      <RoleTable
-        roles={roles}
-        onRemove={removeRole}
-        setRoles={setRoles}
-        filteredRoles={filteredRoles}
-      />
+      <Loader loading={loading}>
+        <RoleTable
+          roles={roles}
+          onRemove={removeRole}
+          setRoles={setRoles}
+          filteredRoles={filteredRoles}
+        />
+      </Loader>
     </>
   );
 };

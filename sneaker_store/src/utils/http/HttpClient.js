@@ -4,7 +4,7 @@ export class HttpClient {
   constructor(config, signal) {
     this.axiosInstance = axios.create({
       baseURL: config.baseURL,
-      timeout: config.timeout,
+      timeout: config.timeout || 3000,
       headers: {
         "Content-Type": "application/json",
         Accept: "application/json",
@@ -12,8 +12,12 @@ export class HttpClient {
       },
       ...config,
     });
+
     this.signal = signal;
+
+    this.initInterceptors();
   }
+
   async get(url, config = {}) {
     return this.request({ method: "GET", url, ...config });
   }
@@ -47,5 +51,42 @@ export class HttpClient {
       }
       return Promise.reject(error);
     }
+  }
+
+  initInterceptors() {
+    this.axiosInstance.interceptors.request.use(
+      (config) => {
+        const token =
+          localStorage.getItem("token");
+
+        if (token) {
+          config.headers["Authorization"] = `Bearer ${token}`;
+        }
+        return config;
+      },
+      (error) => {
+        console.error("Request interceptor error", error);
+        return Promise.reject(error);
+      }
+    );
+
+    this.axiosInstance.interceptors.response.use(
+      (response) => response,
+      (error) => {
+        if (error instanceof AxiosError) {
+          if (error.response?.status === 401) {
+            console.error("Unauthorized request - redirecting to login");
+
+            window.location.href =
+              "/login?returnUrl=" + window.location.pathname;
+          }
+
+          if (error.response?.status === 500) {
+            console.error("Server error - please try again later");
+          }
+        }
+        return Promise.reject(error);
+      }
+    );
   }
 }

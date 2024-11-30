@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { WarehouseService } from "../service/WarehouseService";
+import { UserService } from "../service/UserService";
 
-export const useGetAllWarehouses = () => {
-  const [warehouses, setWarehouses] = useState([]);
+export const useGetAllUsers = () => {
+  const [users, setUsers] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -10,17 +10,17 @@ export const useGetAllWarehouses = () => {
     let isMounted = true;
     const abortController = new AbortController();
     const signal = abortController.signal;
-    const warehouseService = new WarehouseService(signal);
+    const userService = new UserService(signal);
 
-    const fetchWarehouses = async () => {
+    const fetchUsers = async () => {
       try {
         setLoading(true);
         setError(null);
-
-        const response = await warehouseService.getAllWarehouses();
+    
+        const response = await userService.getAllUsers();
 
         if (isMounted) {
-          setWarehouses(response);
+          setUsers(response);
         }
       } catch (error) {
         setError(error.message);
@@ -29,7 +29,7 @@ export const useGetAllWarehouses = () => {
       }
     };
 
-    fetchWarehouses();
+    fetchUsers();
 
     return () => {
       isMounted = false;
@@ -37,7 +37,7 @@ export const useGetAllWarehouses = () => {
     };
   }, []);
 
-  return { warehouses, setWarehouses, loading, error };
+  return {  users, setUsers, loading, error };
 };
 
 
