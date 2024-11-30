@@ -4,7 +4,6 @@ export class RoleService {
   constructor(signal) {
     this.httpClient = new HttpClient({
       baseURL: `https://localhost:7144/role`,
-      timeout: 10000,
       signal,
     });
   }

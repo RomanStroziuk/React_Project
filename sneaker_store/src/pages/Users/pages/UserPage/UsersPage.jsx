@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from "react";
+import { useGetAllUsers } from "./hooks/useGetAllUsers";
+import { useRemoveUsers } from "./hooks/useRemoveUsers";
+import Loader from "../../../../common/components/Loader/Loader";
 import SearchBar from "./components/SearchUser";
 import UserTable from "./components/UserTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { useGetAllUsers } from "./hooks/useGetAllUsers";
-import { useRemoveUsers } from "./hooks/useRemoveUsers";
 
 const UsersPage = () => {
   const [searchTerm, setSearchTerm] = useState("");
@@ -63,15 +64,13 @@ const UsersPage = () => {
           placeholder="Search users..."
         />
 
-        {loading ? (
-          <div>Loading...</div>
-        ) : (
+        <Loader loading={loading}>
           <UserTable
             users={filteredUsers}
             onRemove={removeUsers}
             error={error || removeError}
           />
-        )}
+        </Loader>
       </div>
     </div>
   );

@@ -1,22 +1,22 @@
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import HomePage from "../pages/Home/HomePage";
-import SneakerListPage from "../pages/SneakerList/pages/SneakerListPage/SneakerListPage";
-import UsersPage from "../pages/Users/pages/UserPage/UsersPage";
-import Layout from "../common/components/Layout/Layout";
-import Login from "../pages/Login/Login";
-import BrandPage from "../pages/SneakerList/pages/BrandPage/BrandPage";
-import CategoryPage from "../pages/SneakerList/pages/CategoryPage/CategoryPage";
-import RolePage from "../pages/Users/pages/RolePage/RolePage";
-import OrderPage from "../pages/Order/pages/OrderPage/OrderPage";
-import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
-import WarehousePage from "../pages/Warehouse/pages/WarehousePage/WarehousePage";
 import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
-import NotFoundPage from "../pages/NotFound/NotFoundPage";
-import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";             
-import UserPageLayout from "../pages/Users/UserPageLayout";
-import OrderPageLayout from "../pages/Order/OrderPageLayout";
+import SneakerListPage from "../pages/SneakerList/pages/SneakerListPage/SneakerListPage";
+import WarehousePage from "../pages/Warehouse/pages/WarehousePage/WarehousePage";
+import CategoryPage from "../pages/SneakerList/pages/CategoryPage/CategoryPage";
 import SneakerListPageLayout from "../pages/SneakerList/SneakerListPageLayout";
+import WarehousePageLayout from "../pages/Warehouse/WarehousePageLayout";
+import BrandPage from "../pages/SneakerList/pages/BrandPage/BrandPage";
+import StatusPage from "../pages/Order/pages/StatusPage/StatusPage";
+import OrderPage from "../pages/Order/pages/OrderPage/OrderPage";
+import UsersPage from "../pages/Users/pages/UserPage/UsersPage";
+import RolePage from "../pages/Users/pages/RolePage/RolePage";
+import OrderPageLayout from "../pages/Order/OrderPageLayout";
+import UserPageLayout from "../pages/Users/UserPageLayout";
+import NotFoundPage from "../pages/NotFound/NotFoundPage";
+import Layout from "../common/components/Layout/Layout";
+import HomePage from "../pages/Home/HomePage";
+import Login from "../pages/Login/LoginPage";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPageLayout />}>

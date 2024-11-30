@@ -17,7 +17,6 @@ export const useGetAllBrands = () => {
       try {
         setLoading(true);
         setError(null);
-
         const response = await brandService.getAllBrands();
 
         if (isMounted) {
