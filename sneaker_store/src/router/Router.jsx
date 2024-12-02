@@ -21,14 +21,7 @@ import Login from "../pages/Login/LoginPage";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPageLayout />}>
-    <Route
-      index
-      element={
-        <ProtectedRoute allowedRoles={["Admin", "User"]}>
-          <SneakerListPage />
-        </ProtectedRoute>
-      }
-    />
+    <Route index element={<SneakerListPage />} />
     <Route
       path="brands"
       element={

@@ -27,7 +27,7 @@ const BrandTable = ({ brands, setBrands, onRemove, filteredBrands }) => {
     setShowAlert(false);
   };
 
-  const showBrands = filteredBrands.length > 0 ? filteredBrands : brands;
+  const showBrands = filteredBrands?.length > 0 ? filteredBrands : brands;
 
   if (brands.length === 0) {
     return <div>No data to display</div>;
