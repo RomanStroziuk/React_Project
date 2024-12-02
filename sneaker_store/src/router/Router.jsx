@@ -15,19 +15,48 @@ import OrderPageLayout from "../pages/Order/OrderPageLayout";
 import UserPageLayout from "../pages/Users/UserPageLayout";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import Layout from "../common/components/Layout/Layout";
+import ProtectedRoute from "./ProtectedRoute";
 import HomePage from "../pages/Home/HomePage";
 import Login from "../pages/Login/LoginPage";
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPageLayout />}>
-    <Route index element={<SneakerListPage />} />
-    <Route path="brands" element={<BrandPage />} />
-    <Route path="categories" element={<CategoryPage />} />
+    <Route
+      index
+      element={
+        <ProtectedRoute allowedRoles={["Admin", "User"]}>
+          <SneakerListPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="brands"
+      element={
+        <ProtectedRoute allowedRoles={["Admin"]}>
+          <BrandPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="categories"
+      element={
+        <ProtectedRoute allowedRoles={["Admin"]}>
+          <CategoryPage />
+        </ProtectedRoute>
+      }
+    />
   </Route>
 );
 
 const UsersRoutes = () => (
-  <Route path="users" element={<UserPageLayout />}>
+  <Route
+    path="users"
+    element={
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <UserPageLayout />
+      </ProtectedRoute>
+    }
+  >
     <Route index element={<UsersPage />} />
     <Route path="roles" element={<RolePage />} />
   </Route>
@@ -35,13 +64,34 @@ const UsersRoutes = () => (
 
 const OrdersRoutes = () => (
   <Route path="orders" element={<OrderPageLayout />}>
-    <Route index element={<OrderPage />} />
-    <Route path="status" element={<StatusPage />} />
+    <Route
+      index
+      element={
+        <ProtectedRoute allowedRoles={["Admin", "User"]}>
+          <OrderPage />
+        </ProtectedRoute>
+      }
+    />
+    <Route
+      path="status"
+      element={
+        <ProtectedRoute allowedRoles={["Admin"]}>
+          <StatusPage />
+        </ProtectedRoute>
+      }
+    />
   </Route>
 );
 
 const WarehousesRoutes = () => (
-  <Route path="warehouses" element={<WarehousePageLayout />}>
+  <Route
+    path="warehouses"
+    element={
+      <ProtectedRoute allowedRoles={["Admin"]}>
+        <WarehousePageLayout />
+      </ProtectedRoute>
+    }
+  >
     <Route index element={<WarehousePage />} />
     <Route path="sneaker-warehouse" element={<SneakerWarehousePage />} />
   </Route>
