@@ -6,7 +6,6 @@ import "./Layout.css";
 
 const Layout = () => {
   const user = useGetUserRole();
-
   return (
     <div className="layout-container">
       <nav className="topbar">
@@ -28,10 +27,21 @@ const Layout = () => {
             </>
           )}
           {user && (
-            <li>
-              <CustomLink to="/orders">Order List</CustomLink>
-            </li>
+            <>
+              <li>
+                <CustomLink to="/orders">Order List</CustomLink>
+              </li>
+              <li>
+                <button onClick={handleLogout}>Logout</button>
+              </li>
+            </>
           )}
+          <li>
+            <CustomLink to="/login">Login</CustomLink>
+          </li>
+          <li>
+            <CustomLink to="/register">Register</CustomLink>
+          </li>
         </ul>
       </nav>
       <div className="content">
