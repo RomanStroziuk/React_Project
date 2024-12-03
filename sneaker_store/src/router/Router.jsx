@@ -1,3 +1,4 @@
+// src/router/Router.jsx
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SneakerWarehousePage from "../pages/Warehouse/pages/SneakerWarehousePage/SneakerWarehousePage";
@@ -16,7 +17,9 @@ import UserPageLayout from "../pages/Users/UserPageLayout";
 import NotFoundPage from "../pages/NotFound/NotFoundPage";
 import Layout from "../common/components/Layout/Layout";
 import HomePage from "../pages/Home/HomePage";
-import Login from "../pages/Login/LoginPage";
+import Login from "../pages/Auth/Login/LoginPage";
+import RegisterPage from "../pages/Auth/Register/RegisterPage"; 
+import AuthPageLayout from "../pages/Auth/AuthPageLayout"; // Додаємо AuthPageLayout
 
 const SneakersRoutes = () => (
   <Route path="sneakers" element={<SneakerListPageLayout />}>
@@ -52,6 +55,7 @@ const Router = () => {
     <BrowserRouter>
       <Routes>
         <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<RegisterPage />} />
         <Route path="/" element={<Layout />}>
           <Route index element={<HomePage />} />
           {SneakersRoutes()}
@@ -59,6 +63,7 @@ const Router = () => {
           {OrdersRoutes()}
           {WarehousesRoutes()}
         </Route>
+        <Route path="auth" element={<AuthPageLayout />} /> {/* Додаємо сторінку для реєстрації та логіну */}
         <Route path="*" element={<NotFoundPage />} />
       </Routes>
     </BrowserRouter>
