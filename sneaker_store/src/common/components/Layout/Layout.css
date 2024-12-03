@@ -1,4 +1,3 @@
-@ -1,44 +0,0 @@
 .layout-container {
   display: flex;
   flex-direction: column;
@@ -13,7 +12,8 @@
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: space-between; 
+  padding: 0 20px;
 }
 
 .topbar ul {
@@ -24,7 +24,7 @@
 }
 
 .topbar li {
-  margin: 0 20px;
+  margin: 0 15px;
 }
 
 .topbar a {
@@ -39,11 +39,50 @@
   border-radius: 5px;
 }
 
+.topbar .auth-buttons {
+  display: flex;
+  align-items: center; 
+  margin-left: 200px; 
+
+.topbar .auth-buttons a,
+.topbar .auth-buttons button {
+  color: white;
+  background-color: #007bff;
+  padding: 10px 26px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  text-decoration: none;
+  font-size: 16px;
+  margin-left: 10px;
+}
+
+.topbar .auth-buttons a:hover,
+.topbar .auth-buttons button:hover {
+  background-color: #0056b3;
+}
+
+
+.topbar .auth-buttons .logout-btn {
+  background-color: #dc3545;
+}
+
+.topbar .auth-buttons .logout-btn:hover {
+  background-color: #c82333;
+}
+
 .content {
   padding-top: 80px;
   padding: 20px;
+  flex-grow: 1;
 }
 
 :root {
-    --color-active: #ff6347; /* Наприклад, оранжевий колір для активного */
+  --color-active: #ff6347; 
+}
+
+.topbar a.active {
+  background-color: var(--color-active);
+  color: white
+}
 }
