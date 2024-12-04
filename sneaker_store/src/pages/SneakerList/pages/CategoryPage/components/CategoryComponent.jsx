@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import CategoryTable from "../components/CategoryTable";
 import { useGetAllCategories } from "../hooks/useGetAllCategory";
 import { useRemoveCategory } from "../hooks/useRemoveCategory";
 import { useCreateCategory } from "../hooks/useCreateCategory";
-import CreateCategory from "../components/CreateCategory";
 import SearchBar from "../../../../../common/components/SearchBar/SearchBar";
 import Loader from "../../../../../common/components/Loader/Loader";
+import CreateCategory from "../components/CreateCategory";
+import CategoryTable from "../components/CategoryTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 

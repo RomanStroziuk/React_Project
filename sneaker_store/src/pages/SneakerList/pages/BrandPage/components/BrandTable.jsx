@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useEditBrand } from "../hooks/useEditBrand";
-import RemoveBrand from "./RemoveBrand";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -29,7 +31,7 @@ const BrandTable = ({ brands, setBrands, onRemove, filteredBrands }) => {
 
   const showBrands = filteredBrands?.length > 0 ? filteredBrands : brands;
 
-  if (brands.length === 0) {
+  if (filteredBrands.length === 0) {
     return <div>No data to display</div>;
   }
 
@@ -72,15 +74,13 @@ const BrandTable = ({ brands, setBrands, onRemove, filteredBrands }) => {
               </td>
               <td>
                 {isEdit === brand.id ? (
-                  <button onClick={() => handleSaveClick(brand.id)}>
-                    Save
-                  </button>
+                  <SaveButton onSubmit={() => handleSaveClick(brand.id)} />
                 ) : (
-                  <button onClick={() => handleEditClick(brand.id, brand.name)}>
-                    Edit
-                  </button>
+                  <EditButton
+                    onSubmit={() => handleEditClick(brand.id, brand.name)}
+                  />
                 )}
-                <RemoveBrand onSubmit={() => onRemove(brand.id)} />
+                <RemoveButton onSubmit={() => onRemove(brand.id)} />
               </td>
             </tr>
           ))}
