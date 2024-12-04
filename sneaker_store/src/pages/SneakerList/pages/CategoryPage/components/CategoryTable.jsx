@@ -37,8 +37,8 @@ const CategoryTable = ({
   const showCategories =
     filteredCategories.length > 0 ? filteredCategories : categories;
 
-  if (categories.length === 0) {
-    return <div>no data to display</div>;
+  if (filteredCategories.length === 0) {
+    return <div>no categories found</div>;
   }
 
   return (
@@ -82,9 +82,6 @@ const CategoryTable = ({
                 {isEdit === category.id ? (
                   <SaveButton onSubmit={() => handleSaveClick(category.id)} />
                 ) : (
-                  // <button onClick={() => handleSaveClick(category.id)}>
-                  //   Save
-                  // </button>
                   <EditButton
                     onSubmit={() => handleEditClick(category.id, category.name)}
                   />
