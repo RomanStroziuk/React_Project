@@ -1,65 +1,107 @@
-import React from "react";
+import React, { useState } from "react";
+import BrandTable from "../BrandPage/components/BrandTable";
+import { useGetAllBrands } from "../BrandPage/hooks/useGetAllBrands";
+import { useRemoveBrand } from "../BrandPage/hooks/useRemoveBrand";
+import { useCreateBrand } from "../BrandPage/hooks/useCreateBrand";
+import Loader from "../../../../common/components/Loader/Loader";
 import CreateBrand from "../BrandPage/components/CreateBrand";
 import SearchBar from "../BrandPage/components/SearchBrand";
-import Loader from "../../../../common/components/Loader/Loader";
-import BrandTable from "../BrandPage/components/BrandTable";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
-import { useGetAllBrands } from "../BrandPage/hooks/useGetAllBrands";
-import { useCreateBrand } from "../BrandPage/hooks/useCreateBrand";
-import { useRemoveBrand } from "../BrandPage/hooks/useRemoveBrand";
 
 const BrandPage = () => {
+  const [newBrand, setNewBrand] = useState(null);
+  const [searchTerm, setSearchTerm] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [openSnackbar, setOpenSnackbar] = useState(false);
+
   const { brands, setBrands, loading, error } = useGetAllBrands();
   const { removeBrand } = useRemoveBrand(brands, setBrands);
+  const { createBrand } = useCreateBrand();
 
-  const {
-    newBrand,
-    setNewBrand,
-    searchTerm,
-    setSearchTerm,
-    handleSubmit,
-    errorMessage,
-    openSnackbar,
-    closeSnackbar,
-  } = useCreateBrand(brands, setBrands);
+  function nandleNewNameChange(event) {
+    setNewBrand({ name: event.target.value });
+    setErrorMessage("");
+  }
+
+  function handleSearchChange(event) {
+    setSearchTerm(event.target.value);
+  }
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    if (!newBrand || !newBrand.name.trim()) {
+      setErrorMessage("Brand name cannot be empty.");
+      setOpenSnackbar(true);
+      return;
+    }
+    if (newBrand.name.trim().length < 3) {
+      setErrorMessage("The brand name must be at least 3 characters long.");
+      setOpenSnackbar(true);
+      return;
+    }
+    if (
+      brands.some(
+        (brand) => brand.name.toLowerCase() === newBrand.name.toLowerCase()
+      )
+    ) {
+      setErrorMessage("The brand name already exists.");
+      setOpenSnackbar(true);
+      return;
+    }
+    try {
+      const createdBrand = await createBrand(newBrand);
+      setBrands((prevBrands) => [...prevBrands, createdBrand]);
+      setNewBrand(null);
+      setErrorMessage("");
+    } catch (error) {
+      console.error("Error creating brand:", error.message || "Unknown error");
+    }
+  };
 
   const filteredBrands = brands.filter((brand) =>
     brand.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const handleCloseSnackbar = () => {
+    setOpenSnackbar(false);
+  };
 
   return (
     <>
       <Snackbar
         open={openSnackbar}
         autoHideDuration={6000}
-        onClose={closeSnackbar}
+        onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
         {errorMessage ? (
-          <Alert severity="error" onClose={closeSnackbar}>
+          <Alert severity="error" onClose={handleCloseSnackbar}>
             {errorMessage}
           </Alert>
-        ) : null}
+        ) : (
+          <div></div>
+        )}
       </Snackbar>
 
       <CreateBrand
         name={newBrand?.name}
-        onNameChange={(e) => setNewBrand({ name: e.target.value })}
+        onNameChange={nandleNewNameChange}
         onSubmit={handleSubmit}
       />
 
       <SearchBar
         value={searchTerm}
-        onChange={(e) => setSearchTerm(e.target.value)}
+        onChange={handleSearchChange}
         placeholder="Search brands..."
       />
 
       <Loader loading={loading}>
         <BrandTable
-          brands={filteredBrands}
+          brands={brands}
           onRemove={removeBrand}
           setBrands={setBrands}
+          filteredBrands={filteredBrands}
         />
       </Loader>
     </>
