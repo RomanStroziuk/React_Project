@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useEditCategory } from "../hooks/useEditCategory";
-import RemoveCategory from "./RemoveCategory";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -78,17 +80,16 @@ const CategoryTable = ({
               </td>
               <td>
                 {isEdit === category.id ? (
-                  <button onClick={() => handleSaveClick(category.id)}>
-                    Save
-                  </button>
+                  <SaveButton onSubmit={() => handleSaveClick(category.id)} />
                 ) : (
-                  <button
-                    onClick={() => handleEditClick(category.id, category.name)}
-                  >
-                    Edit
-                  </button>
+                  // <button onClick={() => handleSaveClick(category.id)}>
+                  //   Save
+                  // </button>
+                  <EditButton
+                    onSubmit={() => handleEditClick(category.id, category.name)}
+                  />
                 )}
-                <RemoveCategory onSubmit={() => onRemove(category.id)} />
+                <RemoveButton onSubmit={() => onRemove(category.id)} />
               </td>
             </tr>
           ))}

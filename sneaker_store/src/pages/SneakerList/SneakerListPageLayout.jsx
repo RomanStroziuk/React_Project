@@ -6,7 +6,7 @@ const SneakerListPageLayout = () => {
   const user = useGetUserRole();
   return (
     <div className="sneakerlist-container">
-      {user?.role !== "User" && (
+      {user?.role == "Admin" && (
         <nav className="sidebar">
           <ul>
             <li>
