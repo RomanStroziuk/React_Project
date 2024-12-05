@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { LoginService } from "../service/LoginService";
+import { jwtDecode } from "jwt-decode";
 
 export const useLogin = () => {
   const [loading, setLoading] = useState(false);
@@ -14,7 +15,9 @@ export const useLogin = () => {
 
     try {
       const response = await LoginService.login(email, password, signal);
+      let decoded = jwtDecode(response);
       localStorage.setItem("token", response);
+      localStorage.setItem("user", JSON.stringify(decoded));
       window.location.href = "/";
     } catch (err) {
       console.error(err);

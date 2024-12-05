@@ -12,63 +12,37 @@
   left: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between; 
-  padding: 0 20px;
+  justify-content: space-between;
 }
 
-.topbar ul {
+.navigation-links ul {
   list-style-type: none;
   display: flex;
   margin: 0;
   padding: 0;
 }
 
-.topbar li {
+.navigation-links li {
   margin: 0 15px;
 }
 
-.topbar a {
+.navigation-links a {
   color: white;
   text-decoration: none;
   font-size: 18px;
-}
-
-.topbar a:hover {
-  background-color: #575757;
   padding: 5px 10px;
+}
+
+.navigation-links a:hover {
+  background-color: #575757;
   border-radius: 5px;
 }
 
-.topbar .auth-buttons {
+.auth-buttons {
   display: flex;
-  align-items: center; 
-  margin-left: 200px; 
-
-.topbar .auth-buttons a,
-.topbar .auth-buttons button {
-  color: white;
-  background-color: #007bff;
-  padding: 10px 26px;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-  text-decoration: none;
-  font-size: 16px;
-  margin-left: 10px;
-}
-
-.topbar .auth-buttons a:hover,
-.topbar .auth-buttons button:hover {
-  background-color: #0056b3;
-}
-
-
-.topbar .auth-buttons .logout-btn {
-  background-color: #dc3545;
-}
-
-.topbar .auth-buttons .logout-btn:hover {
-  background-color: #c82333;
+  align-items: center;
+  gap: 10px;
+  margin-right: 20px;
 }
 
 .content {
@@ -78,11 +52,10 @@
 }
 
 :root {
-  --color-active: #ff6347; 
+  --color-active: #ff6347;
 }
 
-.topbar a.active {
+.navigation-links a.active {
   background-color: var(--color-active);
-  color: white
-}
+  color: white;
 }
