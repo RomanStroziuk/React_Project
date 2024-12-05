@@ -1,11 +1,10 @@
 import { useEffect, useState } from "react";
-import {  StatusService } from "../service/StatusService";
+import { StatusService } from "../service/StatusService";
 
-export const useGetAllStatutes = () => {
-  const [statutes, setStatutes] = useState([]);
+export const useGetAllStatuses = () => {
+  const [statuses, setStatuses] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-
 
   useEffect(() => {
     let isMounted = true;
@@ -13,7 +12,7 @@ export const useGetAllStatutes = () => {
     const signal = abortController.signal;
     const statusService = new StatusService(signal);
 
-    const fetchStatutes = async () => {
+    const fetchStatuses = async () => {
       try {
         setLoading(true);
         setError(null);
@@ -21,7 +20,7 @@ export const useGetAllStatutes = () => {
         const response = await statusService.getAllStatutes();
 
         if (isMounted) {
-          setStatutes(response);
+          setStatuses(response);
         }
       } catch (error) {
         setError(error.message);
@@ -30,7 +29,7 @@ export const useGetAllStatutes = () => {
       }
     };
 
-    fetchStatutes();
+    fetchStatuses();
 
     return () => {
       isMounted = false;
@@ -38,6 +37,5 @@ export const useGetAllStatutes = () => {
     };
   }, []);
 
-  return { statutes: statutes, setStatutes, loading, error };
+  return { statuses, setStatuses, loading, error };
 };
-

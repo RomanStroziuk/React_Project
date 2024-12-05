@@ -1,10 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useEditStatus } from "../hooks/useEditStatus";
-import RemoveStatus from "./RemoveStatus";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const StatusTable = ({ statutes, setStatutes, onRemove, filteredStatutes }) => {
+const StatusTable = ({ statuses, setStatuses, onRemove, filteredStatuses }) => {
   const {
     isEdit,
     titleEdit,
@@ -14,7 +16,7 @@ const StatusTable = ({ statutes, setStatutes, onRemove, filteredStatutes }) => {
     handleEditClick,
     handleSaveClick,
     setShowAlert,
-  } = useEditStatus(statutes, setStatutes);
+  } = useEditStatus(statuses, setStatuses);
 
   const [openSnackbar, setOpenSnackbar] = useState(false);
 
@@ -27,9 +29,9 @@ const StatusTable = ({ statutes, setStatutes, onRemove, filteredStatutes }) => {
     setShowAlert(false);
   };
 
-  const showStatutes = filteredStatutes.length > 0 ? filteredStatutes : statutes;
+  const showStatuses = filteredStatuses?.length > 0 ? filteredStatuses : statuses;
 
-  if (statutes.length === 0) {
+  if (filteredStatuses.length === 0) {
     return <div>No data to display</div>;
   }
 
@@ -55,30 +57,28 @@ const StatusTable = ({ statutes, setStatutes, onRemove, filteredStatutes }) => {
           </tr>
         </thead>
         <tbody>
-          {showStatutes.map((status) => (
+          {showStatuses.map((status) => (
             <tr key={status.id}>
               <td>{status.id.toString()}</td>
               <td>
                 {isEdit === status.id ? (
-                  <>
-                    <input
-                      value={titleEdit}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </>
+                  <input
+                    value={titleEdit}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 ) : (
                   status.title
                 )}
               </td>
               <td>
                 {isEdit === status.id ? (
-                  <button onClick={() => handleSaveClick(status.id)}>Save</button>
+                  <SaveButton onSubmit={() => handleSaveClick(status.id)} />
                 ) : (
-                  <button onClick={() => handleEditClick(status.id, status.title)}>
-                    Edit
-                  </button>
+                  <EditButton
+                    onSubmit={() => handleEditClick(status.id, status.title)}
+                  />
                 )}
-                <RemoveStatus onSubmit={() => onRemove(status.id)} />
+                <RemoveButton onSubmit={() => onRemove(status.id)} />
               </td>
             </tr>
           ))}
