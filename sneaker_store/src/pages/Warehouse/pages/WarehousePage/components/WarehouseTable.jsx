@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { useEditWarehouse } from "../hooks/useEditWarehouse";
-import RemoveWarehouse from "./RemoveWarehouse";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const WarehouseTable = ({
-  warehouses,
-  setWarehouses,
-  onRemove,
-  filteredWarehouses,
-}) => {
+const WarehouseTable = ({ warehouses, setWarehouses, onRemove, filteredWarehouses }) => {
   const {
     isEdit,
     locationEdit,
@@ -34,10 +31,9 @@ const WarehouseTable = ({
     setShowAlert(false);
   };
 
-  const showWarehouses =
-    filteredWarehouses.length > 0 ? filteredWarehouses : warehouses;
+  const showWarehouses = filteredWarehouses?.length > 0 ? filteredWarehouses : warehouses;
 
-  if (warehouses.length === 0) {
+  if (showWarehouses.length === 0) {
     return <div>No data to display</div>;
   }
 
@@ -69,47 +65,37 @@ const WarehouseTable = ({
               <td>{warehouse.id.toString()}</td>
               <td>
                 {isEdit === warehouse.id ? (
-                  <>
-                    <input
-                      value={locationEdit}
-                      onChange={(e) => setLocation(e.target.value)}
-                    />
-                  </>
+                  <input
+                    value={locationEdit || ""}
+                    onChange={(e) => setLocation(e.target.value)}
+                  />
                 ) : (
                   warehouse.location
                 )}
               </td>
               <td>
                 {isEdit === warehouse.id ? (
-                  <>
-                    <input
-                      value={totalQuantityEdit}
-                      onChange={(e) => setTotalQuantity(e.target.value)}
-                    />
-                  </>
+                  <input
+                    value={totalQuantityEdit || ""}
+                    onChange={(e) => setTotalQuantity(e.target.value)}
+                  />
                 ) : (
                   warehouse.totalQuantity
                 )}
               </td>
               <td>
                 {isEdit === warehouse.id ? (
-                  <button onClick={() => handleSaveClick(warehouse.id)}>
-                    Save
-                  </button>
+                  <SaveButton
+                  onSubmit={() => handleSaveClick(warehouse.id)}
+                  />
                 ) : (
-                  <button
-                    onClick={() =>
-                      handleEditClick(
-                        warehouse.id,
-                        warehouse.location,
-                        warehouse.totalQuantity
-                      )
-                    }
-                  >
-                    Edit
-                  </button>
+                  <EditButton
+                  onSubmit={() => handleEditClick(warehouse.id, warehouse.location, warehouse.totalQuantity)}
+                  />
                 )}
-                <RemoveWarehouse onSubmit={() => onRemove(warehouse.id)} />
+                <RemoveButton
+                  onSubmit={() => onRemove(warehouse.id)}
+                />
               </td>
             </tr>
           ))}
