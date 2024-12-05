@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useEditRole } from "../hooks/useEditRole";
-import RemoveRole from "./RemoveRole";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -27,9 +29,9 @@ const RoleTable = ({ roles, setRoles, onRemove, filteredRoles }) => {
     setShowAlert(false);
   };
 
-  const showRoles = filteredRoles.length > 0 ? filteredRoles : roles;
+  const showRoles = filteredRoles?.length > 0 ? filteredRoles : roles;
 
-  if (roles.length === 0) {
+  if (filteredRoles.length === 0) {
     return <div>No data to display</div>;
   }
 
@@ -60,27 +62,23 @@ const RoleTable = ({ roles, setRoles, onRemove, filteredRoles }) => {
               <td>{role.id.toString()}</td>
               <td>
                 {isEdit === role.id ? (
-                  <>
-                    <input
-                      value={titleEdit}
-                      onChange={(e) => setTitle(e.target.value)}
-                    />
-                  </>
+                  <input
+                    value={titleEdit}
+                    onChange={(e) => setTitle(e.target.value)}
+                  />
                 ) : (
                   role.title
                 )}
               </td>
               <td>
                 {isEdit === role.id ? (
-                  <button onClick={() => handleSaveClick(role.id)}>
-                    Save
-                  </button>
+                  <SaveButton onSubmit={() => handleSaveClick(role.id)} />
                 ) : (
-                  <button onClick={() => handleEditClick(role.id, role.title)}>
-                    Edit
-                  </button>
+                  <EditButton
+                    onSubmit={() => handleEditClick(role.id, role.title)}
+                  />
                 )}
-                <RemoveRole onSubmit={() => onRemove(role.id)} />
+                <RemoveButton onSubmit={() => onRemove(role.id)} />
               </td>
             </tr>
           ))}
