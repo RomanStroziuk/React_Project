@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useEditSneakerWarehouse } from "../hooks/useEditSneakerWarehouse";
-import RemoveSneakerWarehouse from "./RemoveSneakerWarehouse";
+import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
+import EditButton from "../../../../../common/components/Buttons/EditButton";
+import SaveButton from "../../../../../common/components/Buttons/SaveButton";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
@@ -40,6 +42,7 @@ const SneakerWarehouseTable = ({
   if (sneakerWarehouses.length === 0) {
     return <div>No data to display</div>;
   }
+
   return (
     <>
       <Snackbar
@@ -59,7 +62,7 @@ const SneakerWarehouseTable = ({
             <th>Id</th>
             <th>Sneaker</th>
             <th>Warehouse</th>
-            <th>SneakerQuantity</th>
+            <th>Sneaker Quantity</th>
             <th>Actions</th>
           </tr>
         </thead>
@@ -71,34 +74,30 @@ const SneakerWarehouseTable = ({
               <td>{sneakerWarehouse.warehouse.location}</td>
               <td>
                 {isEdit === sneakerWarehouse.id ? (
-                  <>
-                    <input
-                      value={sneakerQuantityEdit}
-                      onChange={(e) => setSneakerQuantityEdit(e.target.value)}
-                    />
-                  </>
+                  <input
+                    value={sneakerQuantityEdit || ""}
+                    onChange={(e) => setSneakerQuantityEdit(e.target.value)}
+                  />
                 ) : (
                   sneakerWarehouse.sneakerQuantity
                 )}
               </td>
               <td>
                 {isEdit === sneakerWarehouse.id ? (
-                  <button onClick={() => handleSaveClick(sneakerWarehouse.id)}>
-                    Save
-                  </button>
+                  <SaveButton
+                    onSubmit={() => handleSaveClick(sneakerWarehouse.id)}
+                  />
                 ) : (
-                  <button
-                    onClick={() =>
+                  <EditButton
+                    onSubmit={() =>
                       handleEditClick(
                         sneakerWarehouse.id,
                         sneakerWarehouse.sneakerQuantity
                       )
                     }
-                  >
-                    Edit
-                  </button>
+                  />
                 )}
-                <RemoveSneakerWarehouse
+                <RemoveButton
                   onSubmit={() => onRemove(sneakerWarehouse.id)}
                 />
               </td>
