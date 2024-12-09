@@ -17,4 +17,8 @@ export class UserService {
   async deleteUser(id) {
     return await this.httpClient.delete(`/delete/${id}`);
   }
+  async updateUser(user) {
+    return await this.httpClient.put(`/update/`, user); 
+  }
+
 }

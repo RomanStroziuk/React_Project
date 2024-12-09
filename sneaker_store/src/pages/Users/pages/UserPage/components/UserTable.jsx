@@ -2,50 +2,26 @@ import React, { useState, useEffect } from "react";
 import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
 import EditButton from "../../../../../common/components/Buttons/EditButton";
 import SaveButton from "../../../../../common/components/Buttons/SaveButton";
+import { useEditUser } from "../hooks/useEditUser";  
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
-  const [isEdit, setIsEdit] = useState(null);
-  const [firstNameEdit, setFirstNameEdit] = useState("");
-  const [lastNameEdit, setLastNameEdit] = useState("");
-  const [emailEdit, setEmailEdit] = useState("");
-  const [openSnackbar, setOpenSnackbar] = useState(false);
-  const [alertMessage, setAlertMessage] = useState("");
-
-  useEffect(() => {
-    if (firstNameEdit || lastNameEdit || emailEdit) {
-      setAlertMessage("Changes are not saved yet!");
-      setOpenSnackbar(true);
-    }
-  }, [firstNameEdit, lastNameEdit, emailEdit]);
-
-  const handleEditClick = (user) => {
-    setIsEdit(user.id);
-    setFirstNameEdit(user.firstName);
-    setLastNameEdit(user.lastName);
-    setEmailEdit(user.email);
-  };
-
-  const handleSaveClick = (userId) => {
-    const updatedUsers = users.map((user) =>
-      user.id === userId
-        ? {
-            ...user,
-            firstName: firstNameEdit,
-            lastName: lastNameEdit,
-            email: emailEdit,
-          }
-        : user
-    );
-    setUsers(updatedUsers);
-    setIsEdit(null);
-    setAlertMessage("User updated successfully!");
-    setOpenSnackbar(true);
-  };
+const UserTable = ({ users, onRemove, setUsers, filteredUsers, userService, validationMessages }) => {
+  const { 
+    isEdit, 
+    editValues, 
+    handleEditClick, 
+    handleChange, 
+    handleSaveClick, 
+    showAlert, 
+    alertMessage, 
+    setShowAlert, 
+    loading, 
+    error 
+  } = useEditUser(users, setUsers, userService, validationMessages);
 
   const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
+    setShowAlert(false);
   };
 
   const showUsers = filteredUsers?.length > 0 ? filteredUsers : users;
@@ -53,12 +29,12 @@ const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
   return (
     <>
       <Snackbar
-        open={openSnackbar}
+        open={showAlert}
         autoHideDuration={6000}
         onClose={handleCloseSnackbar}
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
       >
-        <Alert severity="info" onClose={handleCloseSnackbar}>
+        <Alert severity={error ? "error" : "info"} onClose={handleCloseSnackbar}>
           {alertMessage}
         </Alert>
       </Snackbar>
@@ -83,8 +59,9 @@ const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
                 <td>
                   {isEdit === user.id ? (
                     <input
-                      value={firstNameEdit}
-                      onChange={(e) => setFirstNameEdit(e.target.value)}
+                      name="firstName"
+                      value={editValues.firstName}
+                      onChange={(e) => handleChange(e)}
                     />
                   ) : (
                     user.firstName
@@ -93,8 +70,9 @@ const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
                 <td>
                   {isEdit === user.id ? (
                     <input
-                      value={lastNameEdit}
-                      onChange={(e) => setLastNameEdit(e.target.value)}
+                      name="lastName"
+                      value={editValues.lastName}
+                      onChange={(e) => handleChange(e)}
                     />
                   ) : (
                     user.lastName
@@ -103,8 +81,9 @@ const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
                 <td>
                   {isEdit === user.id ? (
                     <input
-                      value={emailEdit}
-                      onChange={(e) => setEmailEdit(e.target.value)}
+                      name="email"
+                      value={editValues.email}
+                      onChange={(e) => handleChange(e)}
                     />
                   ) : (
                     user.email
@@ -114,7 +93,7 @@ const UserTable = ({ users, onRemove, setUsers, filteredUsers }) => {
                   {isEdit === user.id ? (
                     <SaveButton onSubmit={() => handleSaveClick(user.id)} />
                   ) : (
-                    <EditButton onSubmit={() => handleEditClick(user)} />
+                    <EditButton onSubmit={() => handleEditClick(user.id, user)} />
                   )}
                   <RemoveButton onSubmit={() => onRemove(user.id)} />
                 </td>

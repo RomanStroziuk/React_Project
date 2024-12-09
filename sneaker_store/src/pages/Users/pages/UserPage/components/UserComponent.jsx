@@ -55,9 +55,10 @@ const UserComponent = () => {
 
       <Loader loading={loading}>
         <UserTable
-          users={filteredUsers}
+          users={users}
+          filteredUsers={filteredUsers}
           onRemove={removeUsers}
-          error={error || removeError}
+          setUsers={setUsers}
         />
       </Loader>
     </div>
