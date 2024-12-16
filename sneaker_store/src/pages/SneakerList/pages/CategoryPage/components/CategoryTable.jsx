@@ -1,44 +1,23 @@
-import React, { useState, useEffect } from "react";
-import { useEditCategory } from "../hooks/useEditCategory";
-import RemoveButton from "../../../../../common/components/Buttons/RemoveButton";
-import EditButton from "../../../../../common/components/Buttons/EditButton";
-import SaveButton from "../../../../../common/components/Buttons/SaveButton";
+import React, { useState } from "react";
+import TableRow from "./TableRow";
 import Snackbar from "@mui/material/Snackbar";
 import Alert from "@mui/material/Alert";
 
-const CategoryTable = ({
-  categories,
-  setCategories,
-  onRemove,
-  filteredCategories,
-}) => {
-  const {
-    isEdit,
-    nameEdit,
-    showAlert,
-    alertMessage,
-    setName,
-    handleEditClick,
-    handleSaveClick,
-    setShowAlert,
-  } = useEditCategory(categories, setCategories);
-
+const CategoryTable = ({ categories, onRemove, filteredCategories, updateCategory }) => {
   const [openSnackbar, setOpenSnackbar] = useState(false);
+  const [alertMessage, setAlertMessage] = useState("");
 
-  useEffect(() => {
-    setOpenSnackbar(showAlert);
-  }, [showAlert]);
-
-  const handleCloseSnackbar = () => {
-    setOpenSnackbar(false);
-    setShowAlert(false);
+  const handleValidationError = (message) => {
+    setAlertMessage(message);
+    setOpenSnackbar(true);
   };
 
-  const showCategories =
-    filteredCategories.length > 0 ? filteredCategories : categories;
+  const handleCloseSnackbar = () => setOpenSnackbar(false);
+
+  const showCategories = filteredCategories?.length > 0 ? filteredCategories : categories;
 
   if (filteredCategories.length === 0) {
-    return <div>no categories found</div>;
+    return <div>No data to display</div>;
   }
 
   return (
@@ -64,31 +43,13 @@ const CategoryTable = ({
         </thead>
         <tbody>
           {showCategories.map((category) => (
-            <tr key={category.id}>
-              <td>{category.id.toString()}</td>
-              <td>
-                {isEdit === category.id ? (
-                  <>
-                    <input
-                      value={nameEdit}
-                      onChange={(e) => setName(e.target.value)}
-                    />
-                  </>
-                ) : (
-                  category.name
-                )}
-              </td>
-              <td>
-                {isEdit === category.id ? (
-                  <SaveButton onSubmit={() => handleSaveClick(category.id)} />
-                ) : (
-                  <EditButton
-                    onSubmit={() => handleEditClick(category.id, category.name)}
-                  />
-                )}
-                <RemoveButton onSubmit={() => onRemove(category.id)} />
-              </td>
-            </tr>
+            <TableRow
+              key={category.id}
+              category={category}
+              onRemove={onRemove}
+              updateCategory={updateCategory}
+              onValidationError={handleValidationError}
+            />
           ))}
         </tbody>
       </table>
